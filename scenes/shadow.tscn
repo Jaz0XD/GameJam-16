@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://buj8t8xa7j7kh"]
+
+[ext_resource type="Script" path="res://scripts/shadow.gd" id="1_k5p1s"]
+[ext_resource type="Texture2D" uid="uid://dywbcfi7x30ul" path="res://assets/placeholders/character sprites/health1.png" id="2_5mpdw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d0grx"]
+radius = 25.4951
+
+[node name="shadow" type="CharacterBody2D" node_paths=PackedStringArray("collisionShape") groups=["SHADOW"]]
+collision_layer = 3
+script = ExtResource("1_k5p1s")
+collisionShape = NodePath("CollisionShape2D")
+spawnDelay = 4.0
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, -28)
+texture = ExtResource("2_5mpdw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -26)
+shape = SubResource("CircleShape2D_d0grx")
+one_way_collision_margin = 0.0
+debug_color = Color(0, 0, 0, 0.419608)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(91, -106)
+position_smoothing_enabled = true

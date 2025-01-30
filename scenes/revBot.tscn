@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cllsfba0hqifm"]
+
+[ext_resource type="Script" path="res://scripts/rev_bot.gd" id="1_vdldr"]
+[ext_resource type="PackedScene" uid="uid://u1cbr45vh5te" path="res://scenes/camera_controller.tscn" id="3_08rvc"]
+[ext_resource type="Texture2D" uid="uid://d0qxg5tjkt8i8" path="res://assets/placeholders/character sprites/health3.png" id="3_hi7eg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rq2wi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d0grx"]
+radius = 25.4951
+
+[node name="revBot" type="CharacterBody2D" node_paths=PackedStringArray("attackRAY") groups=["PLAYER", "REVBOT"]]
+modulate = Color(0.1134, 0.81, 0.38043, 1)
+scale = Vector2(0.43, 0.43)
+collision_layer = 3
+script = ExtResource("1_vdldr")
+attackRAY = NodePath("raycastController/attackRAYCAST")
+
+[node name="visuals" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="visuals"]
+texture_filter = 1
+position = Vector2(2, -28)
+texture = ExtResource("3_hi7eg")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="visuals"]
+position = Vector2(37, -17)
+scale = Vector2(19.25, 4.25)
+mesh = SubResource("BoxMesh_rq2wi")
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -26)
+shape = SubResource("CircleShape2D_d0grx")
+debug_color = Color(0.255746, 0.634714, 0, 0.42)
+
+[node name="raycastController" type="Node2D" parent="."]
+position = Vector2(0, -25.755)
+
+[node name="attackRAYCAST" type="RayCast2D" parent="raycastController"]
+modulate = Color(0.208333, 1, 0.356771, 1)
+position = Vector2(0, -8.485)
+target_position = Vector2(500, 0)
+
+[node name="cameraController" parent="." instance=ExtResource("3_08rvc")]

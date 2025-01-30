@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddlpwe5gyim7o"]
+
+[ext_resource type="Texture2D" uid="uid://tbrcdbfvni0r" path="res://assets/placeholders/jump decal.png" id="1_htqlr"]
+
+[node name="tpanchorSprite" type="Sprite2D"]
+texture = ExtResource("1_htqlr")

@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://246vnfymdcl2"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_73bwv"]
+[ext_resource type="PackedScene" uid="uid://buj8t8xa7j7kh" path="res://scenes/shadow.tscn" id="2_0vhki"]
+[ext_resource type="Texture2D" uid="uid://c5aum8svii5oe" path="res://assets/cutscenes/FULLPLAYER.png" id="3_yg6no"]
+[ext_resource type="PackedScene" uid="uid://u1cbr45vh5te" path="res://scenes/camera_controller.tscn" id="4_hcvik"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rq2wi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d0grx"]
+radius = 25.4951
+
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("rayRight", "rayLeft", "attackRAY") groups=["PLAYER"]]
+collision_layer = 3
+script = ExtResource("1_73bwv")
+cameraOffset = Vector2(139, -87)
+shadow_scene = ExtResource("2_0vhki")
+shadow_offset = 100
+shadow_life = 0.1
+rayRight = NodePath("raycastController/rightRAYCAST")
+rayLeft = NodePath("raycastController/leftRAYCAST")
+attackRAY = NodePath("raycastController/attackRAYCAST")
+
+[node name="visuals" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="visuals"]
+texture_filter = 1
+position = Vector2(2, -28)
+texture = ExtResource("3_yg6no")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="visuals"]
+position = Vector2(37, -17)
+scale = Vector2(19.25, 4.25)
+mesh = SubResource("BoxMesh_rq2wi")
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="raycastController" type="Node2D" parent="."]
+position = Vector2(0, -25.755)
+
+[node name="rightRAYCAST" type="RayCast2D" parent="raycastController"]
+position = Vector2(24, -0.245001)
+target_position = Vector2(50, 0)
+
+[node name="leftRAYCAST" type="RayCast2D" parent="raycastController"]
+position = Vector2(-22, 0.754999)
+target_position = Vector2(-50, 0)
+
+[node name="attackRAYCAST" type="RayCast2D" parent="raycastController"]
+modulate = Color(0.208333, 1, 0.356771, 1)
+position = Vector2(0, -8.485)
+target_position = Vector2(61.34, 0)
+
+[node name="cameraController" parent="." instance=ExtResource("4_hcvik")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -26)
+shape = SubResource("CircleShape2D_d0grx")
+debug_color = Color(0.255746, 0.634714, 0, 0.42)
